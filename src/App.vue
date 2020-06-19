@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -15,19 +14,10 @@ export default {
     HelloWorld
   },
   data() {
-    return {
-      age: 30
-    };
+
   },
   mounted() {
-    let url = "/api/common/adver-getadver";
-    axios.get(url).then(res => {
-      console.log(res);
-    });
-
-    jsonp(url, (err, res) => {
-      console.log(res);
-    });
+    
   }
 };
 </script>
