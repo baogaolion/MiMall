@@ -20,10 +20,13 @@ export default {
     };
   },
   mounted() {
-    let url =
-      "https://www.easy-mock.com/mock/5eeba023bc83131fab731ddd/example/mock";
-    axios.get(url).then((res) => {
-      console.log(res)
+    let url = "/api/common/adver-getadver";
+    axios.get(url).then(res => {
+      console.log(res);
+    });
+
+    jsonp(url, (err, res) => {
+      console.log(res);
     });
   }
 };
