@@ -5,7 +5,11 @@ import VueAxios from 'vue-axios'
 import App from './App.vue'
 // import env from './env'
 
-// axios.defaults.baseURL = '/api'
+const mock = true
+if (mock) {
+    require('./mock/api')
+}
+axios.defaults.baseURL = '/api'
 axios.defaults.timeout = 8000
     //根据环境变量获取不同的请求地址
     // axios.defaults.baseURL = env.baseURL
