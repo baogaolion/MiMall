@@ -1,0 +1,14 @@
+//
+@mixin flex($hov:space-between, $col: center) {
+    display: flex;
+    justify-content: $hov;
+    align-items: $col;
+}
+
+@mixin bgImg($width:0, $height:0, $img:'', $size:contain) {
+    display: inline-block;
+    width: $width;
+    height: $height;
+    background: url($img) no-repeat;
+    background-size: $size;
+}
