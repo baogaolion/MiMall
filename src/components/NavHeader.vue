@@ -164,6 +164,7 @@ export default {
 @import "./../assets/scss/base.scss";
 @import "./../assets/scss/mixin.scss";
 @import "./../assets/scss/config.scss";
+
 .header {
   .nav-topbar {
     height: 39px;
@@ -250,7 +251,8 @@ export default {
             box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
             transition: all 0.5s;
             background-color: #fff;
-
+            z-index: 10;
+            
             .procucts {
               position: relative;
               float: left;

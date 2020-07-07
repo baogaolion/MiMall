@@ -5,17 +5,18 @@
       <p>小米商城</p>
     </div>
     <div class="footer-link">
-      <a href='https://www.imooc.com/t/1343480' target="_blank">河畔一角主页</a>
+      <a href="https://www.imooc.com/t/1343480" target="_blank">河畔一角主页</a>
       <span>|</span>
-      <a href='https://coding.imooc.com/class/397.html' target="_blank">Vue全栈课程</a>
+      <a href="https://coding.imooc.com/class/397.html" target="_blank">Vue全栈课程</a>
       <span>|</span>
-      <a href='https://coding.imooc.com/class/236.html' target="_blank">React全家桶课程</a>
+      <a href="https://coding.imooc.com/class/236.html" target="_blank">React全家桶课程</a>
       <span>|</span>
-      <a href='https://coding.imooc.com/class/343.html' target="_blank">微信支付专项课程(H5+小程序+node+Mongo)</a>
+      <a href="https://coding.imooc.com/class/343.html" target="_blank">微信支付专项课程(H5+小程序+node+Mongo)</a>
     </div>
-    <div
-      class="copyright"
-    >© <span class="domain">mi.com</span>京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2020]0276-042号</div>
+    <div class="copyright">
+      ©
+      <span class="domain">mi.com</span>京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2020]0276-042号
+    </div>
   </div>
 </template>
 
@@ -56,9 +57,9 @@ export default {
     margin-bottom: 13px;
   }
   .copyright {
-      .domain{
-          color: $colorA;
-      }
+    .domain {
+      color: $colorA;
+    }
   }
 }
 </style>

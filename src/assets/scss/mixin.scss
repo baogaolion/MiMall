@@ -5,7 +5,7 @@
     align-items: $col;
 }
 
-@mixin bgImg($width:0, $height:0, $img:'', $size:contain) {
+@mixin bgImg($width:0, $height:0, $img:' ', $size:contain) {
     display: inline-block;
     width: $width;
     height: $height;
