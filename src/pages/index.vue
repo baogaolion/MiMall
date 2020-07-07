@@ -69,16 +69,16 @@
             </a>
           </div>
           <div class="list-box">
-            <div class="list" v-for="arr in phoneList" v-bind:key="arr">
-              <div class="item" v-for="item in arr" v-bind:key="item">
-                <span>新品</span>
+            <div class="list" v-for="(arr, k) in phoneList" v-bind:key="k">
+              <div class="item" v-for="(item, i) in arr" v-bind:key="i">
+                <span v-bind:class="{'kill-pro':i % 2 ==0}">新品</span>
                 <div class="item-img">
-                  <img src="/imgs/item-box-1.png" alt />
+                  <img v-bind:src="item.mainImage" alt />
                 </div>
                 <div class="item-info">
-                  <h3>小米9</h3>
-                  <p>小龙855 时间快点哈手机肯定很健康</p>
-                  <p class="price">2999元</p>
+                  <h3>{{item.name}}</h3>
+                  <p>{{item.subtitle}}</p>
+                  <p class="price">{{item.price}} 元</p>
                 </div>
               </div>
             </div>
@@ -161,11 +161,7 @@ export default {
         { id: 45, img: "/imgs/ads/ads-3.png" },
         { id: 47, img: "/imgs/ads/ads-4.jpg" }
       ],
-      phoneList: [
-        [1, 1, 1, 1],
-        [1, 1, 1, 1]
-      ],
-
+      phoneList: [],
       swiperOption: {
         autoplay: true,
         pagination: {
@@ -187,6 +183,29 @@ export default {
         }
       }
     };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      this.axios
+        .get("/products", {
+          params: {
+            categoryId: 100012,
+            pageSize: 8
+          }
+        })
+        .then(res => {
+          this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)];
+        });
+    }
+  },
+  filters: {
+    currency(val) {
+      if (!val) return "0.00";
+      return val.toFixed(2) + " 元";
+    }
   }
 };
 </script>
@@ -323,10 +342,24 @@ export default {
             background-color: $colorG;
             text-align: center;
             span {
+              display: inline-block;
+              width: 67px;
+              height: 24px;
+              font-size: 14px;
+              color: #fff;
+              line-height: 24px;
+              margin: 5px;
+              &.new-pro {
+                background-color: #7ecf68;
+              }
+              &.kill-pro {
+                background-color: #e82626;
+              }
             }
             .item-img {
               img {
                 height: 195px;
+                width: 100%;
               }
             }
             .item-info {
