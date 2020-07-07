@@ -58,7 +58,33 @@
           <img src="/imgs/banner-1.png" alt />
         </a>
       </div>
-      <div class="product-box"></div>
+    </div>
+    <div class="product-box">
+      <div class="container">
+        <h2>手机</h2>
+        <div class="wrapper">
+          <div class="banner-left">
+            <a href="/#/product/35">
+              <img src="/imgs/mix-alpha.jpg" alt />
+            </a>
+          </div>
+          <div class="list-box">
+            <div class="list" v-for="arr in phoneList" v-bind:key="arr">
+              <div class="item" v-for="item in arr" v-bind:key="item">
+                <span>新品</span>
+                <div class="item-img">
+                  <img src="/imgs/item-box-1.png" alt />
+                </div>
+                <div class="item-info">
+                  <h3>小米9</h3>
+                  <p>小龙855 时间快点哈手机肯定很健康</p>
+                  <p class="price">2999元</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <service-bar></service-bar>
   </div>
@@ -135,6 +161,11 @@ export default {
         { id: 45, img: "/imgs/ads/ads-3.png" },
         { id: 47, img: "/imgs/ads/ads-4.jpg" }
       ],
+      phoneList: [
+        [1, 1, 1, 1],
+        [1, 1, 1, 1]
+      ],
+
       swiperOption: {
         autoplay: true,
         pagination: {
@@ -255,8 +286,78 @@ export default {
     }
   }
 
-  .banner{
+  .banner {
     margin-bottom: 50px;
+  }
+
+  .product-box {
+    background-color: $colorJ;
+    padding: 30px 0 50px;
+    h2 {
+      font-size: $fontF;
+      height: 21px;
+      line-height: 21px;
+      color: $colorB;
+      margin-bottom: 20px;
+    }
+    .wrapper {
+      display: flex;
+      .banner-left {
+        margin-right: 16px;
+        img {
+          width: 224px;
+          height: 619px;
+        }
+      }
+      .list-box {
+        .list {
+          @include flex();
+          width: 986px;
+          margin-bottom: 14px;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          .item {
+            width: 236px;
+            height: 302px;
+            background-color: $colorG;
+            text-align: center;
+            span {
+            }
+            .item-img {
+              img {
+                height: 195px;
+              }
+            }
+            .item-info {
+              h3 {
+                font-size: $fontJ;
+                color: $colorB;
+                line-height: $fontJ;
+                font-weight: bold;
+              }
+              p {
+                color: $colorD;
+                line-height: 13px;
+                margin: 6px auto 13px;
+              }
+              .price {
+                color: #f20a0a;
+                font-size: $fontJ;
+                font-weight: bold;
+                cursor: pointer;
+                &:after {
+                  @include bgImg(18px, 18px, "/imgs/icon-cart-hover.png");
+                  content: " ";
+                  margin-left: 5px;
+                  vertical-align: middle;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>
