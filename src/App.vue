@@ -16,17 +16,15 @@ export default {
       res: {}
     };
   },
-  mounted() { 
+  mounted() {
     //本地 JSON 调试
     // this.axios.get("/mock/user/login.json").then(res => {
     //   this.res = res;
     // });
-
     // 通过 easy-mock 平台实现数据mock
     // this.axios.get('').then(res=>{
     //   this.res = res
     // })
-
     //本地集成 mockjs 实现数据mock
     // this.axios.get('/user/login').then(res => {
     //   this.res = res
@@ -35,6 +33,8 @@ export default {
 };
 </script>
 
-<style>
-  @import './assets/scss/reset.scss';
+<style lang="scss">
+@import "./assets/scss/reset.scss";
+@import "./assets/scss/config.scss";
+@import "./assets/scss/button.scss";
 </style>

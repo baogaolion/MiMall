@@ -73,12 +73,12 @@
               <div class="item" v-for="(item, i) in arr" v-bind:key="i">
                 <span v-bind:class="{'kill-pro':i % 2 ==0}">新品</span>
                 <div class="item-img">
-                  <img v-bind:src="item.mainImage" alt />
+                  <img v-lazy="item.mainImage" alt />
                 </div>
                 <div class="item-info">
                   <h3>{{item.name}}</h3>
                   <p>{{item.subtitle}}</p>
-                  <p class="price">{{item.price}} 元</p>
+                  <p class="price" @click="addCart(item.id)">{{item.price}} 元</p>
                 </div>
               </div>
             </div>
@@ -87,11 +87,24 @@
       </div>
     </div>
     <service-bar></service-bar>
+    <modal
+      title="提示"
+      sureText="查看购物车"
+      btnType="1"
+      modeType="middle"
+      v-bind:showModal="showModal"
+      v-on:submit="goToCart"
+      v-on:cancel="showModal=false">
+      <template v-slot:body>
+        <p>添加商品成功！</p>
+      </template>
+    </modal>
   </div>
 </template>
 
 <script>
 import ServiceBar from "./../components/ServiceBar";
+import Modal from "./../components/Modal";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 
@@ -100,7 +113,8 @@ export default {
   components: {
     swiper,
     swiperSlide,
-    ServiceBar
+    ServiceBar,
+    Modal
   },
   data() {
     return {
@@ -162,6 +176,7 @@ export default {
         { id: 47, img: "/imgs/ads/ads-4.jpg" }
       ],
       phoneList: [],
+      showModal: false,
       swiperOption: {
         autoplay: true,
         pagination: {
@@ -193,12 +208,26 @@ export default {
         .get("/products", {
           params: {
             categoryId: 100012,
-            pageSize: 8
+            pageSize: 14
           }
         })
         .then(res => {
-          this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)];
+          this.phoneList = [res.list.slice(6, 10), res.list.slice(10, 14)];
         });
+    },
+    addCart() {
+      this.showModal = true;
+      // this.axios.post("/carts", {
+      //   productId,
+      //   selected: true
+      // }).then(()=>{
+
+      // }).cache(() => {
+      //     this.showModal = true
+      // })
+    },
+    goToCart() {
+      this.$router.push("/cart");
     }
   },
   filters: {
@@ -357,8 +386,10 @@ export default {
               }
             }
             .item-img {
+              height: 195px;
+              width: 100%;
               img {
-                height: 195px;
+                height: 100%;
                 width: 100%;
               }
             }
