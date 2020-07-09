@@ -24,31 +24,69 @@
           </div>
           <div class="tips">
             <div class="sms" @click="register">手机短信登录/注册</div>
-            <div class="reg">立即注册<span>｜</span>忘记密码？</div>
+            <div class="reg">
+              立即注册
+              <span>｜</span>忘记密码？
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="login-footer">
+      <div class="footer-link">
+        <a href="https://www.imooc.com/u/1343480" target="_blank">河畔一角主页</a>
+        <span>|</span>
+        <a href="https://coding.imooc.com/class/113.html" target="_blank">Vue全栈课程</a>
+        <span>|</span>
+        <a href="https://coding.imooc.com/class/236.html" target="_blank">React全家桶课程</a>
+        <span>|</span>
+        <a
+          href="https://coding.imooc.com/class/343.html"
+          target="_blank"
+        >微信支付专项课程（H5+小程序/云+Node+MongoDB）</a>
+      </div>
+      <p class="copyright">Copyright ©2019 mi.futurefe.com All Rights Reserved.</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'login',
-    data(){
-        return{
-            username: '',
-            password: ''
-        }
+  name: "login",
+  data() {
+    return {
+      username: "",
+      password: "",
+      userId: ""
+    };
+  },
+  methods: {
+    login() {
+      alert(this.username);
+      let { username, password } = this;
+      this.axios
+        .post("/user/login", {
+          username,
+          password
+        })
+        .then(res => {
+          this.$cookie.set("userId", res.id, { expires: "1M" });
+          // to-do 保存用户名
+          this.$router.push("/index");
+        });
     },
-    methods: {
-        login() {
-            alert('登录')
-        },
-        register() {
-          alert('注册')
-        }
+    register() {
+      this.axios
+        .post("/user/register", {
+          username: "root",
+          password: "root",
+          email: "admin@163.com"
+        })
+        .then(() => {
+          alert("注册成功");
+        });
     }
+  }
 };
 </script>
 
@@ -119,11 +157,27 @@ export default {
           }
           .reg {
             color: #999;
-            span{
+            span {
               margin: 0 7px;
             }
           }
         }
+      }
+    }
+  }
+  .login-footer {
+    height: 100px;
+    padding-top: 60px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    .footer-link {
+      a {
+        color: #999;
+        display: inline-block;
+      }
+      span {
+        margin: 0 10px;
       }
     }
   }

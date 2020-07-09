@@ -17,18 +17,20 @@ export default {
     };
   },
   mounted() {
-    //本地 JSON 调试
-    // this.axios.get("/mock/user/login.json").then(res => {
-    //   this.res = res;
-    // });
-    // 通过 easy-mock 平台实现数据mock
-    // this.axios.get('').then(res=>{
-    //   this.res = res
-    // })
-    //本地集成 mockjs 实现数据mock
-    // this.axios.get('/user/login').then(res => {
-    //   this.res = res
-    // })
+    this.getUser()
+    this.getCartCount()
+  },
+  methods: {
+    getUser() {
+      this.axios.get("/user").then(() => {
+        // to-do 保存到 vuex
+      });
+    },
+    getCartCount() {
+      this.axios.get("/carts/products/sum").then(() => {
+        // to-do 保存到 vuex
+      });
+    }
   }
 };
 </script>
