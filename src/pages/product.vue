@@ -1,14 +1,14 @@
 <template>
   <div class="product">
-    <product-param class="product-param">
+    <product-param class="product-param" v-bind:title="product.name">
       <template v-slot:buy>
-        <button class="btn">立即购买</button>
+        <button class="btn" @click="buy">立即购买</button>
       </template>
     </product-param>
     <div class="content">
       <div class="item-bg">
-        <h2>小米8</h2>
-        <h3>睡觉啊好的借口撒谎的空间啊啥的啊啥的借口和撒到家</h3>
+        <h2>{{product.name}}</h2>
+        <h3>{{product.subtitle}}</h3>
         <p>
           <a href>全球首款双频 GP</a>
           <span>|</span>
@@ -21,7 +21,7 @@
         <div class="price">
           <span>
             ¥
-            <em>1222</em>
+            <em>{{product.price}}</em>
           </span>
         </div>
       </div>
@@ -58,11 +58,11 @@
           后置960帧电影般超慢动作视频，将眨眼间的美妙展现得淋漓尽致！
           <br />更能AI 精准分析视频内容，15个场景智能匹配背景音效。
         </p>
-        <div class="video-bg" @click="showSlide=true"></div>
-        <div class="video-box">
-          <div class="overlay" v-show="showSlide"></div>
-          <div class="video" v-bind:class="{'slide':showSlide}">
-            <span class="icon-clase" @click="showSlide=false"></span>
+        <div class="video-bg" @click="showSlide='slideDown'"></div>
+        <div class="video-box" v-show="showSlide">
+          <div class="overlay"></div>
+          <div class="video" v-bind:class="showSlide">
+            <span class="icon-clase" @click="closeVideo"></span>
             <video src="/imgs/product/video.mp4" muted autoplay controls></video>
           </div>
         </div>
@@ -83,7 +83,8 @@ export default {
   },
   data() {
     return {
-      showSlide: false,
+      showSlide: "",
+      product: [],
       swiperOption: {
         autoPlay: true,
         slidesPerView: 3,
@@ -95,6 +96,30 @@ export default {
         }
       }
     };
+  },
+
+  methods: {
+    getProductInfo() {
+      let id = this.$route.params.id;
+
+      this.axios.get(`/products/${id}`).then(res => {
+        this.product = res;
+      });
+    },
+    buy() {
+      let id = this.$route.params.id;
+      this.$router.push(`/detail/${id}`)
+    },
+    closeVideo(){
+      this.showSlide = 'slideUp'
+      setTimeout(()=>{
+        this.showSlide = ''
+      }, 300)
+
+    }
+  },
+  mounted() {
+    this.getProductInfo();
   }
 };
 </script>   
@@ -190,6 +215,26 @@ export default {
           background-color: $colorB;
           opacity: 0.4;
         }
+        @keyframes slideDown {
+          from {
+            top: -50%;
+            opacity: 0;
+          }
+          to {
+            top: 50%;
+            opacity: 1;
+          }
+        }
+        @keyframes slideUp {
+          from {
+            top: 50%;
+            opacity: 1;
+          }
+          to {
+            top: -50%;
+            opacity: 0;
+          }
+        }
         .video {
           z-index: 10;
           position: fixed;
@@ -198,11 +243,13 @@ export default {
           transform: translate(-50%, -50%);
           height: 536px;
           width: 1000px;
-          opacity: 0;
-          transition: all .6s;
-          &.slide{
-            top:50%;
-            opacity: 1;
+          opacity: 1;
+          &.slideDown {
+            animation: slideDown 0.3s linear;
+            top: 50%;
+          }
+          &.slideUp {
+            animation: slideUp 0.3s linear;
           }
           video {
             width: 100%;
@@ -214,7 +261,7 @@ export default {
             position: absolute;
             right: 20px;
             top: 20px;
-            @include bgImg(20px, 20px, '/imgs/icon-close.png');
+            @include bgImg(20px, 20px, "/imgs/icon-close.png");
             cursor: pointer;
             z-index: 11;
           }

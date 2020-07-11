@@ -1,7 +1,7 @@
 <template>
   <div class="nav-bar" :class="{'is_fixed': isFixed}">
     <div class="container">
-      <div class="pro-title">小米8</div>
+      <div class="pro-title">{{title}}</div>
       <div class="pro-param">
         <a href="javascript:;">概述</a>
         <span>|</span>
@@ -17,6 +17,9 @@
 <script>
 export default {
   name: "nav-bar",
+  props: {
+    title:String
+  },
   data() {
     return {
       isFixed: false
@@ -34,8 +37,8 @@ export default {
       this.isFixed = scrollTop > 152 ? true : false;
     }
   },
-  destroyed(){
- window.removeEventListener("scroll", this.initHeight, false);
+  destroyed() {
+    window.removeEventListener("scroll", this.initHeight, false);
   }
 };
 </script>
@@ -47,11 +50,11 @@ export default {
   line-height: 70px;
   border-top: 1px solid $colorH;
   background-color: $colorG;
-  &.is_fixed{
-      width: 100%;
-      position: fixed;
-      top: 0;
-      box-shadow: 0 5px 5px $colorE;
+  &.is_fixed {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    box-shadow: 0 5px 5px $colorE;
   }
   .container {
     @include flex();
