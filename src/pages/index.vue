@@ -94,7 +94,8 @@
       modeType="middle"
       v-bind:showModal="showModal"
       v-on:submit="goToCart"
-      v-on:cancel="showModal=false">
+      v-on:cancel="showModal=false"
+    >
       <template v-slot:body>
         <p>添加商品成功！</p>
       </template>
@@ -216,13 +217,15 @@ export default {
         });
     },
     addCart(id) {
-      this.axios.post("/carts", {
-        productId: id,
-        selected: true
-      }).then((res={})=>{
-      this.showModal = true;
-        this.$store.dispatch('saveCartCount',res.cartTotalQuantity)
-      });
+      this.axios
+        .post("/carts", {
+          productId: id,
+          selected: true
+        })
+        .then((res = {}) => {
+          this.showModal = true;
+          this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
+        });
     },
     goToCart() {
       this.$router.push("/cart");

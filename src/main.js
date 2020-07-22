@@ -2,10 +2,12 @@ import Vue from 'vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
-import App from './App.vue'
+import { Message } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
-import VueLazyload from 'vue-lazyload'
+import App from './App.vue'
 // import env from './env'
 
 const mock = false
@@ -22,25 +24,29 @@ axios.interceptors.response.use(function(response) {
     let res = response.data
     let path = location.hash
     if (res.status == 0) {
-        return res.data
+        return res.data;
     } else if (res.status == 10) {
         if (path != '#/index') {
-            window.location.href = '/#/login'
-            return Promise.reject(res)
+            window.location.href = '/#/login';
         }
-
+        return Promise.reject(res);
     } else {
-        return Promise.reject(res)
+        Message.warning(res.msg);
+        return Promise.reject(res);
     }
-});
-
-Vue.use(VueAxios, axios)
-Vue.use(VueCookie)
-Vue.use(VueLazyload, {
-    loading: '/imgs/loading-svg/loading-bubbles.svg'
+}, (error) => {
+    let res = error.response;
+    Message.error(res.data.message);
+    return Promise.reject(error);
 })
-Vue.config.productionTip = false
 
+Vue.use(VueAxios, axios);
+Vue.use(VueCookie);
+Vue.use(VueLazyLoad, {
+    loading: '/imgs/loading-svg/loading-bars.svg'
+})
+Vue.prototype.$message = Message;
+Vue.config.productionTip = false
 
 new Vue({
     store,

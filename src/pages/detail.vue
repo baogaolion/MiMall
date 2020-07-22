@@ -120,13 +120,16 @@ export default {
       });
     },
     addCart() {
-      this.axios.post("/carts", {
-        productId: this.id,
-        selected: true
-      }).then((res={})=>{
-        this.$store.dispatch('saveCartCount',res.cartTotalQuantity)
-        this.$router.push('/cart')
-      });
+
+      this.axios
+        .post("/carts", {
+          productId: this.id,
+          selected: true
+        })
+        .then((res = {}) => {
+          this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
+          this.$router.push("/cart");
+        });
     }
   }
 };

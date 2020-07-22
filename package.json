@@ -4,8 +4,8 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --mode=development",
-        "test": "vue-cli-service serve --mode=test",
-        "prev": "vue-cli-service serve --mode=prev",
+        "test": "vue-cli-service test --mode=test",
+        "prev": "vue-cli-service prev --mode=prev",
         "build": "vue-cli-service build --mode=production",
         "lint": "vue-cli-service lint"
     },
@@ -21,6 +21,7 @@
         "@vue/cli-service": "~4.4.0",
         "axios": "^0.19.2",
         "babel-eslint": "^10.1.0",
+        "babel-plugin-component": "^1.1.1",
         "element-ui": "^2.13.2",
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2",
